@@ -2,8 +2,15 @@
 
   <!-- Columns -->
   <ng-container *ngFor="let column of columns" matColumnDef="{{ column }}">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column }}</th>
-    <td mat-cell *matCellDef="let row">{{ row[column] }}</td>
+    <ng-container *ngIf="column !== 'numeration'; else numerationColumn">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ columnMappings[column] }}</th>
+      <td mat-cell *matCellDef="let row">{{ row[column] }}</td>
+    </ng-container>
+    <!-- Numeration Column -->
+    <ng-template #numerationColumn>
+      <th mat-header-cell *matHeaderCellDef>Nr.</th>
+      <td mat-cell *matCellDef="let row; let i = index">{{ i + 1 }}</td>
+    </ng-template>
   </ng-container>
 
   <!-- Actions Column -->
@@ -20,6 +27,6 @@
   </ng-container>
 
   <!-- Header and Row Definitions -->
-  <tr mat-header-row *matHeaderRowDef="columns.concat('actions')"></tr>
-  <tr mat-row *matRowDef="let row; columns: columns.concat('actions')"></tr>
+  <tr mat-header-row *matHeaderRowDef="getDisplayedColumns()"></tr>
+  <tr mat-row *matRowDef="let row; columns: getDisplayedColumns()"></tr>
 </table>

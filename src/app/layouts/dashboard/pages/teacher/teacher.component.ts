@@ -7,6 +7,8 @@ export interface Teacher {
   email: string;
 }
 
+type Column = { [key in keyof Teacher]: string }
+
 const teachers: Teacher[] = [
   { id: 1, profession: 'Engineer', name: 'Carlos', lastname: 'Perez', email: 'test@test.com' },
   { id: 2, profession: 'Engineer', name: 'Andres', lastname: 'Sandia', email: 'test@test.com' },
@@ -21,12 +23,17 @@ const teachers: Teacher[] = [
   styleUrl: './teacher.component.scss'
 })
 export class TeacherComponent {
-  columns: (keyof Teacher)[] = ['id', 'name', 'profession', 'lastname', 'email'];
+  columns: Column = {
+    'id': 'id',
+    'profession': 'Profession',
+    'name': 'First name',
+    'lastname': 'Last name',
+    'email': 'Email',
+  };
   dataSource = teachers;
 
   handleEdit(row: Teacher) {
     console.log('Edit clicked for row:', row);
-    console.log()
   }
 
   handleDelete(row: Teacher) {

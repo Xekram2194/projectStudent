@@ -7,6 +7,8 @@ export interface Student {
   email: string;
 }
 
+type Column = { [key in keyof Student]: string }
+
 const students: Student[] = [
   { id: 1, name: 'Carlos', lastname: 'Perez', email: 'test@test.com' },
   { id: 2, name: 'Andres', lastname: 'Sandia', email: 'test@test.com' },
@@ -21,7 +23,12 @@ const students: Student[] = [
   styleUrl: './student.component.scss'
 })
 export class StudentComponent {
-  columns: (keyof Student)[] = ['id', 'name', 'lastname', 'email'];
+  columns: Column = {
+    'id': 'id',
+    'name': 'First name',
+    'lastname': 'Last name',
+    'email': 'Email',
+  };
   dataSource = students;
 
   handleEdit(row: Student) {

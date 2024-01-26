@@ -1,2 +1,2 @@
-<app-table [columns]="columns" [dataSource]="dataSource" (onEdit)="handleEdit($event)"
+<app-table [columnMappings]="columns" [dataSource]="dataSource" [hiddenColumns]="['id']" (onEdit)="handleEdit($event)"
   (onDelete)="handleDelete($event)"></app-table>
