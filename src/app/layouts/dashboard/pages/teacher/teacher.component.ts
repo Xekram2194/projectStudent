@@ -14,7 +14,7 @@ const teachers: Teacher[] = [
   { id: 4, profession: 'Engineer', name: 'Franco', lastname: 'Gutierrez', email: 'test@test.com' },
   { id: 5, profession: 'Engineer', name: 'Diana', lastname: 'Lopez', email: 'test@test.com' },
 ];
-type allKeys = keyof Teacher;
+
 @Component({
   selector: 'app-teacher',
   templateUrl: './teacher.component.html',
