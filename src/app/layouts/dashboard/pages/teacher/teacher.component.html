@@ -1,1 +1,2 @@
-<p>teacher works!</p>
+<app-table [columns]="columns" [dataSource]="dataSource" (onEdit)="handleEdit($event)"
+  (onDelete)="handleDelete($event)"></app-table>

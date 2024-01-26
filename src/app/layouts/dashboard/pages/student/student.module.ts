@@ -1,16 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { StudentComponent } from './student.component';
-import {MatTableModule} from '@angular/material/table';
 import { StudentFormComponent } from './student-form/student-form.component';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import { MatInputModule} from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
-import {MatButtonModule} from '@angular/material/button';
-
-
-
-
+import { MatButtonModule } from '@angular/material/button';
+import { SharedModule } from '../../../../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -18,14 +13,13 @@ import {MatButtonModule} from '@angular/material/button';
     StudentFormComponent
   ],
   imports: [
-    CommonModule,
-    MatTableModule,
+    SharedModule,
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
     MatButtonModule
   ],
-  exports:[
+  exports: [
     StudentComponent
   ]
 })

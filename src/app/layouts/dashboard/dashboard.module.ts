@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard.component';
 import { StudentModule } from './pages/student/student.module';
+import { TeacherModule } from './pages/teacher/teacher.module';
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import { StudentModule } from './pages/student/student.module';
   ],
   imports: [
     CommonModule,
-    StudentModule
+    StudentModule,
+    TeacherModule,
   ],
   exports: [DashboardComponent]
 })

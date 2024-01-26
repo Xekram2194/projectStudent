@@ -1,0 +1,25 @@
+<table mat-table [dataSource]="tableDataSource" matSort class="mat-elevation-z8">
+
+  <!-- Columns -->
+  <ng-container *ngFor="let column of columns" matColumnDef="{{ column }}">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column }}</th>
+    <td mat-cell *matCellDef="let row">{{ row[column] }}</td>
+  </ng-container>
+
+  <!-- Actions Column -->
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let row">
+      <button mat-icon-button *ngIf="onEdit" (click)="onEdit!.emit(row)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button (click)="onDelete.emit(row)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <!-- Header and Row Definitions -->
+  <tr mat-header-row *matHeaderRowDef="columns.concat('actions')"></tr>
+  <tr mat-row *matRowDef="let row; columns: columns.concat('actions')"></tr>
+</table>
