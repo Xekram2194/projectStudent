@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard.component';
 import { StudentModule } from './pages/student/student.module';
 import { TeacherModule } from './pages/teacher/teacher.module';
+import { AdminModule } from './pages/admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { TeacherModule } from './pages/teacher/teacher.module';
     CommonModule,
     StudentModule,
     TeacherModule,
+    AdminModule
   ],
   exports: [DashboardComponent]
 })

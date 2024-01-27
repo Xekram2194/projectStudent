@@ -1,1 +1,5 @@
-<p>admin works!</p>
+<app-table
+  [columnMappings]="colums"
+  [hiddenColumns]="['id', 'password']"
+  [dataSource]="dataSource"
+></app-table>
