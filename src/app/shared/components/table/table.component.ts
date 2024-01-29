@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmationDialogComponent, Dialog } from '../modal/confirmation/confirmation.component';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-table',
@@ -17,6 +18,7 @@ export class TableComponent {
   @Output() onEdit: EventEmitter<any> = new EventEmitter<any>();
   @Output() onDelete: EventEmitter<any> = new EventEmitter<any>();
 
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   tableDataSource!: MatTableDataSource<any>;
@@ -50,6 +52,7 @@ export class TableComponent {
   ngAfterViewInit() {
     this.tableDataSource = new MatTableDataSource(this.dataSource);
     this.tableDataSource.sort = this.sort;
+    this.tableDataSource.paginator = this.paginator,
 
     this.changeDetectorRef.detectChanges();
   }

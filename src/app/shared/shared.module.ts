@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { ConfirmationDialogComponent } from './components/modal/confirmation/confirmation.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     CommonModule,
     MatTableModule,
+    MatPaginatorModule,
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
