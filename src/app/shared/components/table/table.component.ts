@@ -1,13 +1,15 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ConfirmationDialogComponent, Dialog } from '../modal/confirmation/confirmation.component';
 
 @Component({
   selector: 'app-table',
-  templateUrl: './app-table.component.html',
-  styleUrl: './app-table.component.scss'
+  templateUrl: './table.component.html',
+  styleUrl: './table.component.scss'
 })
-export class AppTableComponent {
+export class TableComponent {
   @Input() showNumeration = true;
   @Input() hiddenColumns: string[] = [''];
   @Input() columnMappings: { [key: string]: string } = {};
@@ -19,7 +21,7 @@ export class AppTableComponent {
 
   tableDataSource!: MatTableDataSource<any>;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) { }
+  constructor(private changeDetectorRef: ChangeDetectorRef, private dialog: MatDialog) { }
 
   get columns(): string[] {
     const baseColumns = Object.keys(this.columnMappings);
@@ -29,6 +31,20 @@ export class AppTableComponent {
   getDisplayedColumns(): string[] {
     const baseColumns = this.columns.concat('actions');
     return baseColumns.filter(item => !this.hiddenColumns.includes(item));
+  }
+
+  showDialog(row: any): void {
+    this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        title: 'Delete',
+        message: 'Do you want to continue?'
+      } as Dialog
+    }).afterClosed()
+      .subscribe((confirmed: Boolean) => {
+        if (confirmed) {
+          this.onDelete.emit(row)
+        }
+      });
   }
 
   ngAfterViewInit() {

@@ -1,23 +1,29 @@
 import { NgModule } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 
-import { AppTableComponent } from './components/app-table/app-table.component';
+import { TableComponent } from './components/table/table.component';
 import { CommonModule } from '@angular/common';
+import { ConfirmationDialogComponent } from './components/modal/confirmation/confirmation.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
-    AppTableComponent,
+    TableComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     CommonModule,
     MatTableModule,
     MatIconModule,
     MatButtonModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
   ],
   exports: [
-    AppTableComponent,
+    TableComponent,
   ],
 })
 export class SharedModule { }
