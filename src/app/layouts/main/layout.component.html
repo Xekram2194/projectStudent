@@ -1,0 +1,30 @@
+<div class="sidenav-content">
+  <mat-toolbar color="primary">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon"
+      (click)="drawer.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>{{title}}</span>
+    <span class="spacer"></span>
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon>share</mat-icon>
+    </button>
+  </mat-toolbar>
+</div>
+<mat-drawer-container class="drawer-container" [style.top.px]="mobileQuery.matches ? 56 : 64"
+  [hasBackdrop]="mobileQuery.matches ? 'true' : 'false'" autosize>
+  <mat-drawer #drawer class="sidenav mr-8" [mode]="mobileQuery.matches ? 'over' : 'side'"
+    [style.top.px]="mobileQuery.matches ? 56 : 64" opened>
+    <mat-list>
+      <mat-list-item *ngFor="let url of urls">
+        <button mat-button class="w-full" [routerLink]="url.path" (click)="navigateTo(url.path)">{{url.label}}</button>
+      </mat-list-item>
+    </mat-list>
+  </mat-drawer>
+  <div class="p-3 page-container" [style.height]="mobileQuery.matches ? calcContentHeight(56) :calcContentHeight(64)">
+    <router-outlet></router-outlet>
+  </div>
+</mat-drawer-container>
