@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Action, ToolbarService } from '../../../../shared/services/toolbar.service';
+
 export interface Teacher {
   id: number;
   name: string;
@@ -32,11 +34,27 @@ export class TeacherComponent {
   };
   dataSource = teachers;
 
+  constructor(private toolbarService: ToolbarService) { }
+
   handleEdit(row: Teacher) {
     console.log('Edit clicked for row:', row);
   }
 
   handleDelete(row: Teacher) {
     console.log('Delete clicked for row:', row);
+  }
+
+  ngOnInit(): void {
+    const actions: Action[] = [
+      {
+        label: 'Add New',
+        icon: 'person_add',
+        action: () => {
+          console.log('Add New clicked!');
+        },
+      },
+    ];
+
+    this.toolbarService.setToolbarActions(actions);
   }
 }
