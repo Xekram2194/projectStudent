@@ -2,6 +2,7 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { ToolbarService } from '../../shared/services/toolbar.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -32,11 +33,18 @@ export class MainLayoutComponent {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher
+    media: MediaMatcher,
+    private toolbarService: ToolbarService,
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.toolbarService.clearToolbarActions();
+      }
+    });
   }
 
   ngOnInit(): void {

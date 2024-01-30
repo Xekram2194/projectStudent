@@ -11,10 +11,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { AppRoutingModule } from '../../app-routing.module';
+import { ToolbarComponent } from '../../shared/components/toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
     MainLayoutComponent,
+    ToolbarComponent,
   ],
   imports: [
     AppRoutingModule,
