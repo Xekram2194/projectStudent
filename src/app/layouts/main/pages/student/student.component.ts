@@ -13,8 +13,8 @@ const students: Student[] = [
   { id: 1, name: 'Carlos', lastname: 'Perez', email: 'test@test.com' },
   { id: 2, name: 'Andres', lastname: 'Sandia', email: 'test@test.com' },
   { id: 3, name: 'Maria', lastname: 'Lopez', email: 'test@test.com' },
-  { id: 4, name: 'Franco', lastname: 'Gutierrez', email: 'test@test.com' },
-  { id: 5, name: 'Diana', lastname: 'Lopez', email: 'test@test.com' },
+  { id: 4, name: 'Franco', lastname: 'Gutierrez', email: 'test@test.com' }  
+  // { id: 5, name: 'Diana', lastname: 'Lopez', email: 'test@test.com' },
 ];
 
 @Component({
@@ -38,4 +38,11 @@ export class StudentComponent {
   handleDelete(row: Student) {
     console.log('Delete clicked for row:', row);
   }
+
+  onStudentSubmitted(ev: Student) : void{
+    
+    this.dataSource = [...this.dataSource, ev]
+    console.log(this.dataSource)
+  }
+
 }

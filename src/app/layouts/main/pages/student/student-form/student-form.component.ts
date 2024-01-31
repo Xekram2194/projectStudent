@@ -22,7 +22,7 @@ export class StudentFormComponent {
   }
 
   onSubmit(): void{
-    // this.studentSubmitted.emit(this.studentForm.value)
+    this.studentSubmitted.emit(this.studentForm.value)
     console.log(this.studentForm.value)
   }
 }
