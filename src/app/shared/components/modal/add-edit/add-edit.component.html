@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content>
+  <ng-container *ngTemplateOutlet="data.formTemplate"></ng-container>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="saveData()">Save</button>
+  <button mat-button (click)="closeModal()">Close</button>
+</mat-dialog-actions>

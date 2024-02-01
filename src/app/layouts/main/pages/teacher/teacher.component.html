@@ -1,2 +1,7 @@
 <app-table [columnMappings]="columns" [dataSource]="dataSource" [hiddenColumns]="['id']" (onEdit)="handleEdit($event)"
   (onDelete)="handleDelete($event)"></app-table>
+
+<ng-template #formTemplate>
+  <app-teacher-form [teacherForm]="teacherForm"></app-teacher-form>
+  <pre>{{teacherForm.value | json}}</pre>
+</ng-template>

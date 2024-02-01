@@ -9,11 +9,13 @@ import { ConfirmationDialogComponent } from './components/modal/confirmation/con
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { AddEditModalComponent } from './components/modal/add-edit/add-edit.component';
 
 @NgModule({
   declarations: [
     TableComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    AddEditModalComponent
   ],
   imports: [
     CommonModule,
