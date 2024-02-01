@@ -1,9 +1,8 @@
 import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { Action, ToolbarService } from '../../../../shared/services/toolbar.service';
-import { MatDialog } from '@angular/material/dialog';
-import { AddEditModalComponent, ModalAction } from '../../../../shared/components/modal/add-edit/add-edit.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { createTeacherForm } from './form/form.component';
+import { ModalService } from '../../../../shared/services/modal.service';
 
 export interface Teacher {
   id: number;
@@ -41,43 +40,32 @@ export class TeacherComponent {
 
   @ViewChild('formTemplate') formTemplate!: TemplateRef<any>;
 
-  constructor(private toolbarService: ToolbarService,
-    private dialog: MatDialog,
+  constructor(
+    private toolbarService: ToolbarService,
+    private modalService: ModalService,
     private fb: FormBuilder,
   ) {
     this.teacherForm = this.fb.group(createTeacherForm());
   }
 
-  openAddEditModal(action: ModalAction, handler: () => void) {
-    let title = '';
-    switch (action) {
-      case 'add': title = 'Add Teacher'; break;
-      case 'edit': title = 'Edit Teacher'; break;
-    }
-    const dialogRef = this.dialog.open(AddEditModalComponent, {
-      width: '500px',
-      data: {
-        title,
-        formTemplate: this.formTemplate
-      }
-    });
-
-    dialogRef.componentInstance.validate.subscribe(() => {
-      if (this.teacherForm.valid) {
-        dialogRef.close();
-        handler();
-      }
-    });
-
-    dialogRef.backdropClick().subscribe(() => this.teacherForm.reset());
-  }
-
   handleAdd() {
-    this.openAddEditModal('add', () => console.log('Add clicked'));
+    this.modalService.openAddEditModal(
+      'Teacher',
+      'add',
+      this.formTemplate,
+      this.teacherForm,
+      () => console.log('Add clicked'),
+    );
   }
 
   handleEdit(row: Teacher) {
-    this.openAddEditModal('edit', () => console.log('Edit clicked for row:', row));
+    this.modalService.openAddEditModal(
+      'Teacher',
+      'edit',
+      this.formTemplate,
+      this.teacherForm,
+      () => console.log('Edit clicked for row:', row)
+    );
   }
 
   handleDelete(row: Teacher) {

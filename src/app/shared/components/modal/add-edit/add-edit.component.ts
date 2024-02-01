@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-export type ModalAction = 'add' | 'edit'
-
 @Component({
   selector: 'app-add-edit-modal',
   templateUrl: './add-edit.component.html',
