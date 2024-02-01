@@ -59,12 +59,13 @@ export class TeacherComponent {
   }
 
   handleEdit(row: Teacher) {
+    this.teacherForm = this.fb.group(createTeacherForm(row));
     this.modalService.openAddEditModal(
       'Teacher',
       'edit',
       this.formTemplate,
       this.teacherForm,
-      () => console.log('Edit clicked for row:', row)
+      () => console.log('Edit clicked for row:', this.teacherForm.value)
     );
   }
 
