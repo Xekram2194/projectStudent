@@ -1,36 +1,40 @@
 <div class="mat-elevation-z2">
-  <table mat-table [dataSource]="tableDataSource" matSort>
+  <div class="table">
+    <table mat-table [dataSource]="tableDataSource" matSort>
 
-    <!-- Columns -->
-    <ng-container *ngFor="let column of columns" matColumnDef="{{ column }}">
-      <ng-container *ngIf="column !== 'numeration'; else numerationColumn">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ columnMappings[column] }}</th>
-        <td mat-cell *matCellDef="let row">{{ row[column] }}</td>
+      <!-- Columns -->
+      <ng-container *ngFor="let column of columns" matColumnDef="{{ column }}">
+        <ng-container *ngIf="column !== 'numeration'; else numerationColumn">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ columnMappings[column] }}</th>
+          <td mat-cell *matCellDef="let row">{{ row[column] }}</td>
+        </ng-container>
+        <!-- Numeration Column -->
+        <ng-template #numerationColumn>
+          <th mat-header-cell *matHeaderCellDef>Nr.</th>
+          <td mat-cell *matCellDef="let row; let i = index">{{ i + 1 }}</td>
+        </ng-template>
       </ng-container>
-      <!-- Numeration Column -->
-      <ng-template #numerationColumn>
-        <th mat-header-cell *matHeaderCellDef>Nr.</th>
-        <td mat-cell *matCellDef="let row; let i = index">{{ i + 1 }}</td>
-      </ng-template>
-    </ng-container>
 
-    <!-- Actions Column -->
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
-      <td mat-cell *matCellDef="let row">
-        <button mat-icon-button *ngIf="onEdit" (click)="onEdit!.emit(row)">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button (click)="showDialog(row)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let row">
+          <div class="actions">
+            <button mat-icon-button *ngIf="onEdit" (click)="onEdit!.emit(row)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="showDialog(row)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
 
-    <!-- Header and Row Definitions -->
-    <tr mat-header-row *matHeaderRowDef="getDisplayedColumns()"></tr>
-    <tr mat-row *matRowDef="let row; columns: getDisplayedColumns()"></tr>
-  </table>
+      <!-- Header and Row Definitions -->
+      <tr mat-header-row *matHeaderRowDef="getDisplayedColumns()"></tr>
+      <tr mat-row *matRowDef="let row; columns: getDisplayedColumns()"></tr>
+    </table>
+  </div>
   <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page"></mat-paginator>
 
 </div>
