@@ -1,9 +1,10 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmationDialogComponent, Dialog } from '../modal/confirmation/confirmation.component';
 import { MatPaginator } from '@angular/material/paginator';
+import { TableService } from '../../services/table.service';
 
 @Component({
   selector: 'app-table',
@@ -23,7 +24,10 @@ export class TableComponent {
 
   tableDataSource!: MatTableDataSource<any>;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef, private dialog: MatDialog) { }
+  constructor(
+    private dialog: MatDialog,
+    private tableService: TableService,
+  ) { }
 
   get columns(): string[] {
     const baseColumns = Object.keys(this.columnMappings);
@@ -49,11 +53,15 @@ export class TableComponent {
       });
   }
 
-  ngAfterViewInit() {
-    this.tableDataSource = new MatTableDataSource(this.dataSource);
-    this.tableDataSource.sort = this.sort;
-    this.tableDataSource.paginator = this.paginator,
+  ngOnInit() {
+    this.tableService.currentData.subscribe((newDataSource) => {
+      this.tableDataSource = newDataSource;
+      this.tableDataSource.sort = this.sort;
+      this.tableDataSource.paginator = this.paginator;
+    });
+  }
 
-    this.changeDetectorRef.detectChanges();
+  ngAfterViewInit() {
+    this.tableService.updateData(this.dataSource);
   }
 }
