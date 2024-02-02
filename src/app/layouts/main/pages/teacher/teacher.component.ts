@@ -5,8 +5,7 @@ import { createTeacherForm } from './form/form.component';
 import { ModalService } from '../../../../shared/services/modal.service';
 import { Teacher, TeacherService } from '../../../../shared/services/teacher.service';
 import { TableService } from '../../../../shared/services/table.service';
-
-type Column = { [key in keyof Teacher]: string }
+import { Column } from '../../../../shared/components/table/table.component';
 
 @Component({
   selector: 'app-teacher',
@@ -14,7 +13,7 @@ type Column = { [key in keyof Teacher]: string }
   styleUrl: './teacher.component.scss'
 })
 export class TeacherComponent {
-  columns: Column = {
+  columns: Column<Teacher> = {
     'id': 'id',
     'profession': 'Profession',
     'name': 'First name',

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TableService } from '../../../../shared/services/table.service';
+import { Column } from '../../../../shared/components/table/table.component';
 
 export interface Student {
   id: number;
@@ -7,8 +8,6 @@ export interface Student {
   lastname: string;
   email: string;
 }
-
-type Column = { [key in keyof Student]: string }
 
 const students: Student[] = [
   { id: 1, name: 'Carlos', lastname: 'Perez', email: 'test@test.com' },
@@ -24,7 +23,7 @@ const students: Student[] = [
   styleUrl: './student.component.scss'
 })
 export class StudentComponent {
-  columns: Column = {
+  columns: Column<Student> = {
     'id': 'id',
     'name': 'First name',
     'lastname': 'Last name',

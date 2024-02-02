@@ -6,6 +6,8 @@ import { ConfirmationDialogComponent, Dialog } from '../modal/confirmation/confi
 import { MatPaginator } from '@angular/material/paginator';
 import { TableService } from '../../services/table.service';
 
+export type Column<T> = { [key in keyof T]: string }
+
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
