@@ -16,7 +16,7 @@ export class StudentFormComponent {
     this.studentForm = this.fb.group({
       id: this.fb.control('', Validators.required),
       name: this.fb.control('', Validators.required),
-      lastName: this.fb.control('', Validators.required),
+      lastname: this.fb.control('', Validators.required),
       email: this.fb.control('', Validators.required),
     })
   }

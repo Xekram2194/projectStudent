@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TableService } from '../../../../shared/services/table.service';
 
 export interface Student {
   id: number;
@@ -13,7 +14,7 @@ const students: Student[] = [
   { id: 1, name: 'Carlos', lastname: 'Perez', email: 'test@test.com' },
   { id: 2, name: 'Andres', lastname: 'Sandia', email: 'test@test.com' },
   { id: 3, name: 'Maria', lastname: 'Lopez', email: 'test@test.com' },
-  { id: 4, name: 'Franco', lastname: 'Gutierrez', email: 'test@test.com' }  
+  { id: 4, name: 'Franco', lastname: 'Gutierrez', email: 'test@test.com' }
   // { id: 5, name: 'Diana', lastname: 'Lopez', email: 'test@test.com' },
 ];
 
@@ -31,6 +32,8 @@ export class StudentComponent {
   };
   dataSource = students;
 
+  constructor(private tableService: TableService) { }
+
   handleEdit(row: Student) {
     console.log('Edit clicked for row:', row);
   }
@@ -39,10 +42,9 @@ export class StudentComponent {
     console.log('Delete clicked for row:', row);
   }
 
-  onStudentSubmitted(ev: Student) : void{
-    
+  onStudentSubmitted(ev: Student): void {
     this.dataSource = [...this.dataSource, ev]
-    console.log(this.dataSource)
+    this.tableService.updateData(this.dataSource)
   }
 
 }
