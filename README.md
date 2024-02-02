@@ -2,6 +2,17 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.6.
 
+## Clone Project
+
+1.- First Step Run `npm install`
+
+2.- Open 2 terminals , in the first one run:
+    
+    2.1 First Terminal - Run `npx json-server db.json` for the REST API mockup server
+    
+    2.2 Second Terminal - Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
