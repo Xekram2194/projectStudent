@@ -1,3 +1,7 @@
-<app-student-form (studentSubmitted)="onStudentSubmitted($event)"></app-student-form>
-<app-table [columnMappings]="columns" [dataSource]="dataSource" (onEdit)="handleEdit($event)"
+
+<app-table [columnMappings]="columns" [hiddenColumns]="['id']" [dataSource]="dataSource" (onEdit)="handleEdit($event)"
   (onDelete)="handleDelete($event)"></app-table>
+
+<ng-template #formTemplate>
+  <app-student-form [studentForm]="studentForm"></app-student-form>
+</ng-template>

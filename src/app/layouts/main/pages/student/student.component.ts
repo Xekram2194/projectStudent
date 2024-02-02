@@ -1,21 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { TableService } from '../../../../shared/services/table.service';
 import { Column } from '../../../../shared/components/table/table.component';
+import { Student, StudentService } from '../../../../shared/services/student.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { createStudentForm } from './student-form/student-form.component';
+import { ModalService } from '../../../../shared/services/modal.service';
+import { Action, ToolbarService } from '../../../../shared/services/toolbar.service';
 
-export interface Student {
-  id: number;
-  name: string;
-  lastname: string;
-  email: string;
-}
-
-const students: Student[] = [
-  { id: 1, name: 'Carlos', lastname: 'Perez', email: 'test@test.com' },
-  { id: 2, name: 'Andres', lastname: 'Sandia', email: 'test@test.com' },
-  { id: 3, name: 'Maria', lastname: 'Lopez', email: 'test@test.com' },
-  { id: 4, name: 'Franco', lastname: 'Gutierrez', email: 'test@test.com' }
-  // { id: 5, name: 'Diana', lastname: 'Lopez', email: 'test@test.com' },
-];
 
 @Component({
   selector: 'app-student',
@@ -25,25 +16,65 @@ const students: Student[] = [
 export class StudentComponent {
   columns: Column<Student> = {
     'id': 'id',
+    'code' : 'Code',
     'name': 'First name',
     'lastname': 'Last name',
     'email': 'Email',
   };
-  dataSource = students;
+  dataSource : Student[] = [];
+  studentForm !: FormGroup;
 
-  constructor(private tableService: TableService) { }
+  @ViewChild('formTemplate') formTemplate!: TemplateRef<Student>;
 
+  constructor(
+    private fb: FormBuilder,
+    private modalService: ModalService,
+    private tableService: TableService,
+    private toolbarService: ToolbarService,
+    private studentService: StudentService
+    ) {
+    this.studentService.get().subscribe({
+      next: (res) => {
+        this.tableService.updateData(res);
+      }
+    })
+   }
+
+   handleAdd() {
+    this.studentForm = this.fb.group(createStudentForm());
+    this.modalService.openAddEditModal(
+      'Student',
+      'add',
+      this.formTemplate,
+      this.studentForm,
+      () => this.tableService.handleOnAdd(this.studentService, this.studentForm),
+    );
+  }
   handleEdit(row: Student) {
-    console.log('Edit clicked for row:', row);
+    this.studentForm = this.fb.group(createStudentForm(row));
+    this.modalService.openAddEditModal(
+      'Student',
+      'edit',
+      this.formTemplate,
+      this.studentForm,
+      () => this.tableService.handleOnEdit(this.studentService, this.studentForm),
+    );
   }
 
   handleDelete(row: Student) {
-    console.log('Delete clicked for row:', row);
+    this.tableService.handleOnDelete(this.studentService, row.id!);
   }
 
-  onStudentSubmitted(ev: Student): void {
-    this.dataSource = [...this.dataSource, ev]
-    this.tableService.updateData(this.dataSource)
+  ngOnInit(): void {
+    const actions: Action[] = [
+      {
+        label: 'Add New',
+        icon: 'person_add',
+        action: () => this.handleAdd(),
+      },
+    ];
+
+    this.toolbarService.setToolbarActions(actions);
   }
 
 }
